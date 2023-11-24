@@ -4,10 +4,9 @@ import axios from 'axios';
 import StarRating from '../star-rating/StarRating.jsx';
 import Price from '../overview/Price.jsx';
 import './styles/productCardStyles.css';
-require("dotenv").config();
 
 const ProductCard = ({ id, productCardClick }) => {
-  const [imageURL, setImageURL] = useState('https://imgur.com/a/GueMKaC');
+  const [imageURL, setImageURL] = useState('https://i.imgur.com/mYzivnl.png');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [originalPrice, setOriginalPrice] = useState(0);
@@ -15,7 +14,7 @@ const ProductCard = ({ id, productCardClick }) => {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    axios.get(`${process.env.API_URL}products/${id}/styles`, {headers: {Authorization: process.env.GIT_TOKEN}})
+    axios.get(`/products/${id}/styles`)
       .then(({ data }) => {
         var defaultIndex = data.results.findIndex((style) => style['default?'] === true);
         defaultIndex === -1 ? defaultIndex = 0 : defaultIndex = defaultIndex;
@@ -28,7 +27,7 @@ const ProductCard = ({ id, productCardClick }) => {
       .catch((err) => {
         console.log(`Failed to retrieve styles for product ID: ${id}`)
       })
-    axios.get(`${process.env.API_URL}products/${id}`, {headers: {Authorization: process.env.GIT_TOKEN}})
+    axios.get(`/products/${id}`)
       .then(({ data }) => {
         setName(data.name);
         setCategory(data.category);
@@ -36,7 +35,7 @@ const ProductCard = ({ id, productCardClick }) => {
       .catch((err) => {
         console.log('Failed to retrieve product information')
       })
-    axios.get(`${process.env.API_URL}reviews/meta/?product_id=${id}`, {headers: {Authorization: process.env.GIT_TOKEN}})
+    axios.get(`/reviews/meta/?product_id=${id}`)
       .then(({ data }) => {
         var r = data.ratings;
         setRating((Number(r[1]) + (Number(r[2]) * 2) + (Number(r[3]) * 3) + (Number(r[4]) * 4) + (Number(r[5]) * 5)) / (Number(r[1]) + Number(r[2]) + Number(r[3]) + Number(r[4]) + Number(r[5])))

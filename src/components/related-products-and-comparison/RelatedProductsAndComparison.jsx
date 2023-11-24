@@ -9,7 +9,7 @@ const RelatedProductsAndComparison = ({ currentProduct, setCurrentProduct }) => 
   const [outfitProducts, setOutfitProducts] = useState([-1]);
 
   useEffect(() => {
-    axios.get(`${process.env.API_URL}products/${currentProduct}/related`, {headers: {Authorization: process.env.GIT_TOKEN}})
+    axios.get(`/products/${currentProduct}/related`)
       .then(({ data }) => {
         const uniqueRelatedProducts = data.filter((value, index, array) => array.indexOf(value) === index);
         setRelatedProducts(uniqueRelatedProducts);
