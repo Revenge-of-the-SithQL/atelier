@@ -9,7 +9,7 @@ import Navbar from './components/navbar/Navbar.jsx';
 import Share from './Share.jsx';
 
 const App = () => {
-  const [currentProductId, setCurrentProductId] = useState(40348);
+  const [currentProductId, setCurrentProductId] = useState(40347);
   const [metaData, setMetaData] = useState({});
   const [productInfo, setProductInfo] = useState({});
 
