@@ -263,6 +263,11 @@ button {
 | Form |
 *------*/
 
+.qa-form-heading {
+  display: flex;
+  flex-direction: column;
+}
+
 .qa-form-heading h2 {
   margin: 0;
 }
