@@ -134,8 +134,9 @@
 }
 
 .photos-container img {
-  height: 5.5em;
-  width: 7em;
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
 }
 
 .answer-details-container {
@@ -266,6 +267,8 @@ button {
 .qa-form-heading {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .qa-form-heading h2 {
@@ -273,8 +276,6 @@ button {
 }
 
 .qa-form-heading h4 {
-  display: flex;
-  justify-content: center;
   margin: 0.2rem 0 1rem;
 }
 
@@ -326,7 +327,7 @@ button {
 
 .qa-submit-form {
   display: flex;
-  justify-content: center;
+  gap: 0.5em;
 }
 
 .qa-submit-form button {
@@ -338,6 +339,32 @@ button {
   margin: 1.5rem 0 0;
 }
 
-.qa-submit-form button:hover {
+.qa-submit-form button:hover,
+.qa-upload-image button:hover {
   opacity: 0.8;
+}
+
+.qa-upload-container {
+  margin-top: 1.5rem;
+}
+
+.qa-upload-image button {
+  background-color: var(--text-color);
+  border-radius: 0.2rem;
+  color: white;
+  align-items: stretch;
+  padding: 0.5rem 0.8rem;
+}
+
+.qa-uploaded {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.qa-upload-image {
+  display: flex;
+  justify-content: space-between;
+}
+.qa-upload-container input {
+  width: 75%;
 }
