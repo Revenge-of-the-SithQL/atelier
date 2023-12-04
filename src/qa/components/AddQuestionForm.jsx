@@ -42,7 +42,7 @@ const AddQuestionForm = ({ productId, productName, setIsModalOpen }) => {
         <h4>{`About the ${productName}`}</h4>
       </div>
       <div className='qa-form-container'>
-        <form data-testid='question-form' onSubmit={handleAddQuestion}>
+        <form data-testid='question-form' onSubmit={handleAddQuestion} onChange={() => { setFormErrors([]); }}>
           <p className='qa-form-label'>
             Nickname
             <span className='qa-required-input'>*</span>
