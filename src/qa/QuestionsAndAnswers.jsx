@@ -6,7 +6,6 @@ import AddQuestionForm from './components/AddQuestionForm.jsx';
 import './qaStyles.css';
 
 const QuestionsAndAnswers = ({ productId, productName }) => {
-  const [totalQuestions, setTotalQuestions] = useState(0);
   const [questionList, setQuestionList] = useState([]);
   const [currQuestionList, setCurrQuestionList] = useState([]);
   const [displayCount, setDisplayCount] = useState(2);
@@ -15,7 +14,7 @@ const QuestionsAndAnswers = ({ productId, productName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMoreQuestions = () => {
-    if (totalQuestions !== displayCount) {
+    if (questionList.length !== displayCount) {
       setDisplayCount((prevCount) => prevCount + 2);
       setCurrQuestionList((prevList) => questionList.slice(0, prevList.length + 2));
     }
@@ -31,22 +30,13 @@ const QuestionsAndAnswers = ({ productId, productName }) => {
   useEffect(() => {
     getListOfQuestions(productId)
       .then((response) => {
-        let filteredList;
-
-        if (term) {
-          filteredList = response.data.results.filter((question) => question.question_body.toLowerCase().includes(term));
-        } else {
-          filteredList = response.data.results;
-        }
-
-        setTotalQuestions(filteredList.length);
-        setQuestionList(filteredList);
-        setCurrQuestionList(filteredList.slice(0, displayCount));
+        setQuestionList(response.data.results);
+        setCurrQuestionList(response.data.results.slice(0, 2));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [productId, term]);
+  }, [productId]);
 
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? 'hidden' : 'scroll';
@@ -70,10 +60,11 @@ const QuestionsAndAnswers = ({ productId, productName }) => {
         currQuestionList={currQuestionList}
         isQuestionExpanded={isQuestionExpanded}
         productName={productName}
+        term={term}
       />
       <div className='qa-button-container'>
         {
-          totalQuestions > 2 && currQuestionList.length < totalQuestions
+          questionList.length > 2 && currQuestionList.length < questionList.length
           && <button type='button' className='more-questions' onClick={handleMoreQuestions}>MORE QUESTIONS</button>
         }
         <button type='button' className='add-question' onClick={() => { setIsModalOpen(true); }}>ADD A QUESTION</button>

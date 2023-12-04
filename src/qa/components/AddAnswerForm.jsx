@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addAnswer } from '../lib/fetchFunctions.js';
 import { validateForm } from '../lib/helperFunctions.js';
+import UploadImages from './UploadImages.jsx';
 
 const AddAnswerForm = ({ questionId, questionBody, productName, setIsModalOpen }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const AddAnswerForm = ({ questionId, questionBody, productName, setIsModalOpen }
   });
 
   const [formErrors, setFormErrors] = useState([]);
+  const [upload, setUpload] = useState(false);
 
   const updateFormDataValue = (e, key) => {
     setFormData({ ...formData, [key]: e.target.value });
@@ -45,7 +47,7 @@ const AddAnswerForm = ({ questionId, questionBody, productName, setIsModalOpen }
         </h4>
       </div>
       <div className='qa-form-container'>
-        <form data-testid='answer-form' onSubmit={handleAddAnswer}>
+        <form data-testid='answer-form' onSubmit={handleAddAnswer} onChange={() => { setFormErrors([]); }}>
           <p className='qa-form-label'>
             Nickname
             <span className='qa-required-input'>*</span>
@@ -80,7 +82,14 @@ const AddAnswerForm = ({ questionId, questionBody, productName, setIsModalOpen }
             maxLength={1000}
             onChange={(e) => { updateFormDataValue(e, 'body'); }}
           />
+          {
+            upload
+              && <UploadImages formData={formData} setFormData={setFormData} />
+          }
           <div className='qa-submit-form'>
+            <button type='button' className='qa-display-upload-input' onClick={() => { setUpload(true); }}>
+              UPLOAD IMAGES
+            </button>
             <button type='submit'>
               SUBMIT
             </button>
