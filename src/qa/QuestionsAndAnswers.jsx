@@ -31,7 +31,7 @@ const QuestionsAndAnswers = ({ productId, productName }) => {
     getListOfQuestions(productId)
       .then((response) => {
         setQuestionList(response.data.results);
-        setCurrQuestionList(response.data.results.slice(0, displayCount));
+        setCurrQuestionList(response.data.results.slice(0, 2));
       })
       .catch((err) => {
         console.log(err);
